@@ -1,0 +1,39 @@
+<header>
+  <div class="nav-container">
+    <div class="nav-display">
+      <a class="home-link" href="/">csvite</a>
+      <nav>
+        <ul class="nav-ul">
+          <% links.forEach(link => { %>
+          <li>
+            <a class="nav-link" href="<%= link.href %>"> <%= link.text %> </a>
+          </li>
+          <% }) %>
+        </ul>
+      </nav>
+    </div>
+    <div>
+      <% if(user){ %>
+      <a href="/profile">
+        <div class="flex">
+          <img
+            class="avatar"
+            src="<%= user.avatar %>"
+            alt="<%= user.username %>"
+          />
+          <div class="flex-col">
+            <h5 class="username"><%= user.username %></h5>
+            <p class="money">AR$ <%= user.money %></p>
+          </div>
+        </div>
+      </a>
+      <% } else{ %>
+      <a class="login" href="/auth/steam">
+        <img class="steam-png" src="/img/steam.png" alt="steam" />
+
+        <p class="login-p">Ingresar</p>
+      </a>
+      <% } %>
+    </div>
+  </div>
+</header>

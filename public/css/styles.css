@@ -1,0 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #151313;
+  color: white;
+  font-family: "Space Mono", "Lucida Sans", "Lucida Sans Regular",
+    "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.nav-ul {
+  display: flex;
+  align-items: center;
+  gap: 0px 20px;
+}
+.container {
+  padding: 0px 20px;
+  max-width: 1200px;
+  margin: 90px auto;
+}
+header {
+  background: #151313;
+  border-bottom: 1px solid #2f2f2f;
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.avatar {
+  border-radius: 100%;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-display {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.money {
+  font-size: 13px;
+  color: rgb(28, 176, 28);
+  font-weight: 700;
+}
+
+.home-link {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.steam-png {
+  width: 20px;
+  height: 20px;
+}
+
+.login {
+  display: flex;
+  padding: 10px;
+  gap: 14px;
+  border-radius: 2px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    118deg,
+    rgb(3, 0, 53) 77%,
+    rgb(12, 12, 12) 100%,
+    rgb(4, 45, 84) 100%,
+    rgb(31, 31, 31) 100%,
+    rgb(15, 15, 141) 100%
+  );
+  align-items: center;
+  font-weight: 400;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.login:hover {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    118deg,
+    rgb(7, 3, 90) 77%,
+    rgb(15, 14, 14) 100%,
+    rgb(2, 61, 116) 100%,
+    rgb(0, 0, 0) 100%,
+    rgb(3, 3, 71) 100%
+  );
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.login-p {
+  padding: 0;
+  margin: 0;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+.profile-money {
+  font-size: 18px;
+  color: rgb(28, 176, 28);
+  font-weight: 700;
+}
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    "first second"
+    "third second";
+  grid-template-columns: 1fr 2fr; /* Adjust column sizes */
+  grid-template-rows: auto 80dvh; /* First row height adjusts to content, second row has fixed height */
+  grid-gap: 10px; /* Spacing between grid items */
+}
+
+.first {
+  background: #1c1b1b;
+  border-radius: 5px;
+  padding: 15px;
+  height: fit-content;
+  grid-area: first;
+}
+
+.second {
+  background: #1c1b1b;
+  border-radius: 5px;
+  padding: 15px;
+  height: 70dvh;
+  grid-area: second;
+}
+
+.third {
+  background: #1c1b1b;
+  border-radius: 5px;
+  padding: 15px;
+  height: fit-content;
+  grid-area: third;
+}
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+label {
+  font-size: 18px;
+}
+.nav-link {
+  color: white;
+}
+.nav-link:hover {
+  color: #ababab;
+}
+.mb-5 {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+input {
+  width: 72%;
+  background-color: #2f2f2f;
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+  color: white;
+  outline: none;
+  font-size: 16px;
+  font-family: "Space Mono";
+}
+button {
+  display: inline-block;
+  background-color: rgb(70, 87, 156);
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+  color: white;
+  outline: none;
+  font-size: 16px;
+  font-family: "Space Mono";
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover {
+  background-color: rgb(61, 81, 161);
+}
+.find-trade-url {
+  font-size: 13px;
+  font-weight: bold;
+  color: #818181;
+}
+.find-trade-url:hover {
+  text-decoration: underline;
+}
+.error {
+  margin-top: 3px;
+  font-size: 14px;
+  color: rgb(215, 39, 39);
+}
+.success {
+  margin-top: 3px;
+  font-size: 14px;
+  color: rgb(20, 187, 20);
+}
+.profile-steam {
+  width: 100%;
+  background: #131313;
+  padding: 13px;
+  border-radius: 2px;
+}
+.profile-steam:hover {
+  background: #0f0f0f;
+}
+
+.hero-container {
+  position: relative; /* Position relative to position the text absolutely */
+  border-radius: 5px;
+  background-image: linear-gradient(to right, #141313 0%, #0c0428 100%);
+  display: flex;
+  width: 30dvw;
+  overflow: hidden; /* Hide overflow to ensure it doesn't spill out */
+}
+
+.text-container {
+  font-size: 44px;
+  position: absolute; /* Absolute positioning to place it above the images */
+  color: white; /* Ensure text is readable */
+  z-index: 10; /* Ensure text is above images */
+  top: 30px; /* Distance from the top */
+  right: 20px; /* Distance from the right */
+  text-align: right; /* Align text to the right */
+  max-width: calc(100% - 200px); /* Adjust width to fit within container */
+  padding: 10px; /* Optional padding for spacing */
+  box-sizing: border-box; /* Include padding in width calculation */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Shadow effect for better readability */
+}
+
+.agent {
+  width: 300px;
+  height: 350px;
+  object-fit: cover;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../partials/head") %>
+  </head>
+  <body>
+    <%- include("../partials/header") %>
+    <div class="container">
+      <div class="wrapper">
+        <section class="first">
+          <div class="flex">
+            <img class="profile-avatar" src="<%= user.avatar %>" />
+            <div class="flex-col">
+              <h2 class="profile-username"><%= user.username %></h2>
+              <h5 class="profile-money">AR$ <%= user.money %></h5>
+            </div>
+          </div>
+        </section>
+        <section class="second">
+          <p>sec</p>
+        </section>
+        <section class="third">
+          <div class="profile-settings">
+            <form action="/profile" method="post">
+              <div class="mb-5">
+                <label for="tradeurl">Trade URL</label>
+                <a
+                  class="find-trade-url"
+                  href="https://steamcommunity.com/id/<%= user.findTradeUrl %>/tradeoffers/privacy#trade_offer_access_url"
+                  target="_blank"
+                >
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                  Encontrar tu Trade URL
+                </a>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="tradeurl"
+                  id="tradeurl"
+                  placeholder="Trade URL"
+                  value="<%= user.tradeUrl || '' %>"
+                />
+                <button>Guardar</button>
+              </div>
+              <% if (errorMsg) { %>
+              <p class="error"><%= errorMsg %></p>
+              <% } %> <% if (successMsg) { %>
+              <p class="success"><%= successMsg %></p>
+              <% } %>
+            </form>
+            <a
+              class="profile-steam flex"
+              href="<%= user.profileUrl %>"
+              target="_blank"
+            >
+              <img class="steam-png" src="/img/steam.png" alt="Steam" />
+              <p>Perfil de Steam</p>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
