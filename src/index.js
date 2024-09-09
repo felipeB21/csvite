@@ -12,6 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import indexRouter from "./routes/index.router.js";
+import paymentRouter from "./routes/payments.router.js";
 import User from "./models/User.js";
 
 dotenv.config();
@@ -44,6 +45,7 @@ app.use(
 );
 
 app.use("/", indexRouter);
+app.use("/payments", paymentRouter);
 
 // Steam passport strategy
 passport.use(

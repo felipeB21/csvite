@@ -1,3 +1,4 @@
+import MercadoPagoConfig from "mercadopago";
 import User from "../models/User.js";
 const links = [
   { href: "/skins", text: "Skins" },
@@ -56,6 +57,39 @@ export const updateTradeUrl = async (req, res) => {
     await user.save();
 
     req.session.successMsg = "Trade URL actualizado correctamente";
+    return res.redirect("/profile");
+  } catch (error) {
+    console.error("Error updating trade URL:", error);
+    req.session.errorMsg = "Error en el servidor";
+    return res.redirect("/profile");
+  }
+};
+
+export const updateEmail = async (req, res) => {
+  const { email } = req.body;
+  const userId = req.user.id;
+  try {
+    if (!email) {
+      req.session.errorMsg = "Ingrese un email";
+      return res.redirect("/profile");
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      req.session.errorMsg = "Usuario no encontrado";
+      return res.redirect("/profile");
+    }
+
+    if (email === user.email) {
+      req.session.successMsg = "El email ya está actualizado";
+      return res.redirect("/profile");
+    }
+
+    user.email = email;
+    await user.save();
+
+    req.session.successMsg = "Email actualizado correctamente";
     return res.redirect("/profile");
   } catch (error) {
     console.error("Error updating trade URL:", error);

@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   profileUrl: { type: String },
   visibility: { type: Number },
   tradeUrl: { type: String },
+  email: { type: String },
   findTradeUrl: { type: String },
   money: { type: Number, default: 0 },
 });

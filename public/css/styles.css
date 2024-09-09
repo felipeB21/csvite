@@ -185,6 +185,11 @@ form {
 }
 label {
   font-size: 18px;
+  font-weight: bold;
+}
+.profile-text {
+  font-size: 18px;
+  font-weight: bold;
 }
 .nav-link {
   color: white;
@@ -209,7 +214,7 @@ input {
   font-size: 16px;
   font-family: "Space Mono";
 }
-button {
+.save {
   display: inline-block;
   background-color: rgb(70, 87, 156);
   border: none;
@@ -222,7 +227,16 @@ button {
   font-weight: bold;
   cursor: pointer;
 }
-button:hover {
+button {
+  display: inline-block;
+  border: none;
+  color: white;
+  outline: none;
+  font-size: 16px;
+  font-family: "Space Mono";
+  cursor: pointer;
+}
+.save:hover {
   background-color: rgb(61, 81, 161);
 }
 .find-trade-url {
@@ -263,14 +277,14 @@ button:hover {
 }
 
 .text-container {
-  font-size: 44px;
+  font-size: 48px;
   position: absolute; /* Absolute positioning to place it above the images */
   color: white; /* Ensure text is readable */
   z-index: 10; /* Ensure text is above images */
   top: 30px; /* Distance from the top */
   right: 20px; /* Distance from the right */
   text-align: right; /* Align text to the right */
-  max-width: calc(100% - 200px); /* Adjust width to fit within container */
+  max-width: calc(100% - 100px); /* Adjust width to fit within container */
   padding: 10px; /* Optional padding for spacing */
   box-sizing: border-box; /* Include padding in width calculation */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Shadow effect for better readability */
@@ -281,4 +295,35 @@ button:hover {
   height: 350px;
   object-fit: cover;
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+}
+
+.deposit-cash {
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #2b8e04;
+  padding: 10px;
+}
+
+.deposit-skins {
+  margin-top: 10px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #0c3896;
+  padding: 10px;
+}
+
+.mt-5 {
+  margin-top: 25px;
+}
+.deposit-ipt {
+  width: 100%;
+  margin-bottom: 10px;
 }

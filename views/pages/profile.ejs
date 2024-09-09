@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <%- include("../partials/head") %>
+    <title>Profile | CSVITE</title>
   </head>
   <body>
     <%- include("../partials/header") %>
@@ -21,7 +22,7 @@
         </section>
         <section class="third">
           <div class="profile-settings">
-            <form action="/profile" method="post">
+            <form action="/profile/update-trade-url" method="post">
               <div class="mb-5">
                 <label for="tradeurl">Trade URL</label>
                 <a
@@ -41,14 +42,30 @@
                   placeholder="Trade URL"
                   value="<%= user.tradeUrl || '' %>"
                 />
-                <button>Guardar</button>
+                <button class="save">Guardar</button>
               </div>
-              <% if (errorMsg) { %>
-              <p class="error"><%= errorMsg %></p>
-              <% } %> <% if (successMsg) { %>
-              <p class="success"><%= successMsg %></p>
-              <% } %>
             </form>
+
+            <form action="/profile/update-email" method="post">
+              <div class="mb-5">
+                <label for="email">Añadir Email de contacto</label>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  value="<%= user.email || '' %>"
+                />
+                <button class="save">Guardar</button>
+              </div>
+            </form>
+            <% if (errorMsg) { %>
+            <p class="error"><%= errorMsg %></p>
+            <% } %> <% if (successMsg) { %>
+            <p class="success"><%= successMsg %></p>
+            <% } %>
             <a
               class="profile-steam flex"
               href="<%= user.profileUrl %>"
@@ -57,9 +74,62 @@
               <img class="steam-png" src="/img/steam.png" alt="Steam" />
               <p>Perfil de Steam</p>
             </a>
+            <div>
+              <h5 class="profile-text">Balance</h5>
+              <h5 class="profile-money">AR$ <%= user.money %></h5>
+              <div class="mt-5">
+                <input
+                  class="deposit-ipt"
+                  type="number"
+                  id="deposit-amount"
+                  placeholder="Ingrese monto (mínimo 2000 ARS, máximo 1000000 ARS)"
+                />
+                <button class="deposit-cash" id="deposit-button">
+                  <i class="fa-solid fa-coins"></i>
+                  <p>Ingresar dinero</p>
+                </button>
+                <a class="deposit-skins" href="#">
+                  <i class="fa-solid fa-gun"></i>
+                  <p>Ingresar skins</p>
+                </a>
+                <div id="wallet_container"></div>
+              </div>
+            </div>
           </div>
         </section>
       </div>
     </div>
+    <script>
+      document
+        .getElementById("deposit-button")
+        .addEventListener("click", async function () {
+          const amount = document.getElementById("deposit-amount").value;
+
+          if (amount < 2000 || amount > 1000000) {
+            alert("El monto debe estar entre 2000 ARS y 1000000 ARS.");
+            return;
+          }
+
+          try {
+            const response = await fetch("/payments/create-order", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ amount: parseFloat(amount) }),
+            });
+
+            const data = await response.json();
+
+            if (data) {
+              window.location.href = data;
+            } else {
+              console.error("Checkout URL not found");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+    </script>
   </body>
 </html>
