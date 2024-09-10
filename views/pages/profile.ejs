@@ -13,15 +13,45 @@
             <img class="profile-avatar" src="<%= user.avatar %>" />
             <div class="flex-col">
               <h2 class="profile-username"><%= user.username %></h2>
-              <h5 class="profile-money">AR$ <%= user.money %></h5>
+              <p class="user-id">ID: <%= user.steamId %></p>
             </div>
+            <form action="/logout" method="post">
+              <button>Cerrar sesion</button>
+            </form>
           </div>
         </section>
         <section class="second">
-          <p>sec</p>
+          <div class="select-container">
+            <button class="select-profile" id="buyed-skins">
+              Skins Compradas
+            </button>
+            <span class="separetor">|</span>
+            <button class="select-profile" id="selled-skins">
+              Skins Vendidas
+            </button>
+            <span class="separetor">|</span>
+            <button class="select-profile" id="steam-inventory">
+              Inventario de Steam
+            </button>
+          </div>
+          <div class="inventory-wrapper">
+            <% if (inv) { %> <% inv.forEach(i => { %>
+            <div class="skin-wrapper">
+              <img
+                class="skin-img"
+                src="<%= i.icon_url %>"
+                alt="<%= i.name %>"
+              />
+              <p class="skin-p"><%= i.state %></p>
+            </div>
+            <% }) %> <% } %>
+          </div>
+
+          <div id="pagination"></div>
         </section>
         <section class="third">
           <div class="profile-settings">
+            <h5 class="profile-text mb-5">Perfil</h5>
             <form action="/profile/update-trade-url" method="post">
               <div class="mb-5">
                 <label for="tradeurl">Trade URL</label>
@@ -71,18 +101,19 @@
               href="<%= user.profileUrl %>"
               target="_blank"
             >
-              <img class="steam-png" src="/img/steam.png" alt="Steam" />
+              <img class="steam-png" src="/img/steam.svg" alt="Steam" />
               <p>Perfil de Steam</p>
             </a>
             <div>
-              <h5 class="profile-text">Balance</h5>
+              <h5 class="profile-text mb-5">Balance</h5>
               <h5 class="profile-money">AR$ <%= user.money %></h5>
               <div class="mt-5">
+                <h5 class="profile-text mb-5">Añadir Balance</h5>
                 <input
                   class="deposit-ipt"
                   type="number"
                   id="deposit-amount"
-                  placeholder="Ingrese monto (mínimo 2000 ARS, máximo 1000000 ARS)"
+                  placeholder="mínimo 2.000 ARS, máximo 2.000.000 ARS"
                 />
                 <p id="error-message" class="error mb-5"></p>
                 <button class="deposit-cash" id="deposit-button">
@@ -93,10 +124,7 @@
                   />
                   <p>Ingresar dinero</p>
                 </button>
-                <a class="deposit-skins" href="#">
-                  <i class="fa-solid fa-gun"></i>
-                  <p>Vender skins</p>
-                </a>
+
                 <div id="wallet_container"></div>
               </div>
             </div>
@@ -122,9 +150,9 @@
             return;
           }
 
-          if (amount < 2000 || amount > 1000000) {
+          if (amount < 2000 || amount > 2000000) {
             errorMessageElement.textContent =
-              "El monto debe estar entre 2000 ARS y 1000000 ARS.";
+              "El monto debe estar entre 2.000,00 ARS y 2.000.000,00 ARS.";
             return;
           }
 

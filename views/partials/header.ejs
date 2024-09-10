@@ -6,7 +6,12 @@
         <ul class="nav-ul">
           <% links.forEach(link => { %>
           <li>
-            <a class="nav-link" href="<%= link.href %>"> <%= link.text %> </a>
+            <a
+              class="nav-link <%= link.href === currentPath ? 'active' : '' %>"
+              href="<%= link.href %>"
+            >
+              <%= link.text %>
+            </a>
           </li>
           <% }) %>
         </ul>
@@ -14,24 +19,29 @@
     </div>
     <div>
       <% if(user){ %>
-      <a href="/profile">
-        <div class="flex">
-          <img
-            class="avatar"
-            src="<%= user.avatar %>"
-            alt="<%= user.username %>"
-          />
-          <div class="flex-col">
-            <h5 class="username"><%= user.username %></h5>
-            <p class="money">AR$ <%= user.money %></p>
-          </div>
+      <div class="nav-profile">
+        <div class="add-money-header">
+          <i class="fa-solid fa-wallet"></i>
+          <p class="money-header">AR$ <%= user.money %></p>
+          <button class="add-balance-header">
+            <i class="fa-solid fa-plus"></i>
+          </button>
         </div>
-      </a>
+        <a href="/profile">
+          <div class="flex">
+            <img
+              class="avatar"
+              src="<%= user.avatar %>"
+              alt="<%= user.username %>"
+            />
+          </div>
+        </a>
+      </div>
       <% } else{ %>
       <a class="login" href="/auth/steam">
-        <img class="steam-png" src="/img/steam.png" alt="steam" />
+        <img class="steam-png" src="/img/steam.svg" alt="steam" />
 
-        <p class="login-p">Ingresar</p>
+        <p class="login-p">Regístrarse a través de Steam</p>
       </a>
       <% } %>
     </div>

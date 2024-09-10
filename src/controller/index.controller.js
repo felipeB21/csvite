@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import steaminventory from "get-steam-inventory";
 import User from "../models/User.js";
 const links = [
   { href: "/skins", text: "Skins" },
@@ -9,12 +9,13 @@ const links = [
 
 export const index = (req, res) => {
   const user = req.user;
-
-  res.render("pages/index", { user, links });
+  const currentPath = req.path;
+  res.render("pages/index", { user, links, currentPath });
 };
 
 export const profile = async (req, res) => {
   const user = req.user;
+  const currentPath = req.path;
   const successMsg = req.session.successMsg;
   const errorMsg = req.session.errorMsg;
 
@@ -22,22 +23,41 @@ export const profile = async (req, res) => {
   req.session.errorMsg = null;
 
   try {
-    const inventory = await fetch(
-      "https://steamcommunity.com/profiles/76561198328808887/inventory/json/730/2",
-      {
-        headers: {
-          "content-type": "application/json",
-        },
-        method: "GET",
-      }
-    );
-    console.log(inventory);
+    const steamid = user.steamId;
+    const inventory = await steaminventory.getinventory(730, steamid, "2");
+    const data = inventory.items;
 
-    const data = await inventory.json();
-    console.log("success", data);
-    res.render("pages/profile", { user, links, successMsg, errorMsg, data });
+    const extractTextInsideParentheses = (text) => {
+      const match = text.match(/\(([^)]+)\)/);
+      return match ? match[1] : "No info";
+    };
+
+    const inv = data
+      .filter((item) => item.marketable !== 0)
+      .map((item) => ({
+        state: extractTextInsideParentheses(item.market_name),
+        name: item.market_name,
+        icon_url: `https://cdn.skinsmonkey.com/economy/image/${item.icon_url}`,
+      }));
+
+    res.render("pages/profile", {
+      user,
+      successMsg,
+      errorMsg,
+      links,
+      currentPath,
+      inv,
+    });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching inventory:", error);
+    res.render("pages/profile", {
+      user,
+      successMsg,
+      errorMsg,
+      links,
+      currentPath,
+      inv: [],
+    });
   }
 };
 
@@ -117,5 +137,16 @@ export const updateEmail = async (req, res) => {
 
 export const skins = async (req, res) => {
   const user = req.user;
-  res.render("pages/skins", { user, links });
+  const currentPath = req.path;
+
+  res.render("pages/skins", { user, links, currentPath });
+};
+
+export const logout = (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 };

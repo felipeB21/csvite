@@ -15,10 +15,10 @@ export const createOrder = async (req, res) => {
 
   if (!userId) return res.status(400).json({ error: "Usuario no encontrado." });
 
-  if (amount < 2000 || amount > 1000000) {
-    return res
-      .status(400)
-      .json({ error: "El monto debe estar entre 2000 ARS y 500000 ARS." });
+  if (amount < 2000 || amount > 2000000) {
+    return res.status(400).json({
+      error: "El monto debe estar entre 2.000,00 ARS y 2.000.000,00 ARS.",
+    });
   }
   try {
     const response = await preference.create({
@@ -33,7 +33,7 @@ export const createOrder = async (req, res) => {
         ],
         back_urls: {
           success: `http://localhost:3000/payments/success?userId=${userId}&amount=${amount}`,
-          failure: "http://localhost:3000/payments/failure",
+          failure: "http://localhost:3000/profile",
           pending: "http://localhost:3000/payments/pending",
         },
         auto_return: "approved",
@@ -66,3 +66,10 @@ export const handleSuccess = async (req, res) => {
     return res.status(500).json({ error: "Error al actualizar el saldo." });
   }
 };
+
+export const getOrders = async (req, res) => {
+  try {
+  } catch (error) {}
+};
+
+export const withrawBalance = async (req, res) => {};

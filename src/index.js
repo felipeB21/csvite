@@ -57,8 +57,20 @@ passport.use(
     },
     async function (identifier, profile, done) {
       try {
+        // Check if the user already exists
         let user = await User.findOne({ steamId: profile.id });
-        if (!user) {
+        if (user) {
+          // Update user's name and avatar if changed
+          if (
+            user.username !== profile.displayName ||
+            user.avatar !== profile._json.avatar
+          ) {
+            user.username = profile.displayName;
+            user.avatar = profile._json.avatar;
+            await user.save();
+          }
+        } else {
+          // Create a new user if not found
           user = new User({
             steamId: profile.id,
             username: profile.displayName,
@@ -87,7 +99,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
-
     done(null, user);
   } catch (error) {
     done(error);
