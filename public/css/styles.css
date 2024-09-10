@@ -2,10 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-color: #56524d hsla(0, 0%, 100%, 0);
+  scrollbar-width: thin;
 }
 
 body {
-  background: #151313;
+  background: #302e2a;
   color: white;
   font-family: "Montserrat", sans-serif;
 }
@@ -30,8 +32,7 @@ ul {
   margin: 90px auto;
 }
 header {
-  background: #151313;
-  border-bottom: 1px solid #2f2f2f;
+  background: #21201e;
   padding: 15px 0;
   position: fixed;
   width: 100%;
@@ -85,31 +86,11 @@ header {
   display: flex;
   padding: 10px;
   gap: 14px;
-  border-radius: 2px;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    118deg,
-    rgb(3, 0, 53) 77%,
-    rgb(12, 12, 12) 100%,
-    rgb(4, 45, 84) 100%,
-    rgb(31, 31, 31) 100%,
-    rgb(15, 15, 141) 100%
-  );
-  align-items: center;
-  font-weight: 400;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.login:hover {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    118deg,
-    rgb(7, 3, 90) 77%,
-    rgb(15, 14, 14) 100%,
-    rgb(2, 61, 116) 100%,
-    rgb(0, 0, 0) 100%,
-    rgb(3, 3, 71) 100%
-  );
+  border-radius: 5px;
+  background-color: #f5c71b;
+  color: #3b2600;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 /* Animation keyframes */
@@ -122,11 +103,6 @@ header {
     opacity: 1;
     transform: scale(1);
   }
-}
-
-.login-p {
-  padding: 0;
-  margin: 0;
 }
 
 .profile-avatar {
@@ -151,7 +127,7 @@ header {
 }
 
 .first {
-  background: #1c1b1b;
+  background-color: rgba(63, 60, 56, 0.4);
   border-radius: 5px;
   padding: 15px;
   height: fit-content;
@@ -159,7 +135,7 @@ header {
 }
 
 .second {
-  background: #1c1b1b;
+  background-color: rgba(63, 60, 56, 0.4);
   border-radius: 5px;
   padding: 15px;
   height: 70dvh;
@@ -167,7 +143,7 @@ header {
 }
 
 .third {
-  background: #1c1b1b;
+  background-color: rgba(63, 60, 56, 0.4);
   border-radius: 5px;
   padding: 15px;
   height: max-content;
@@ -182,6 +158,13 @@ form {
   display: flex;
   flex-direction: column;
 }
+button {
+  background: none;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
 label {
   font-size: 18px;
   font-weight: bold;
@@ -191,10 +174,15 @@ label {
   font-weight: bold;
 }
 .nav-link {
-  color: white;
+  color: #aea89b;
+  font-weight: 500;
 }
 .nav-link:hover {
-  color: #ababab;
+  color: white;
+}
+.nav-link.active {
+  color: #ffcc00; /* Cambia el color del enlace activo */
+  font-weight: bold; /* Opcional: resaltar el texto */
 }
 .mb-5 {
   margin-bottom: 5px;
@@ -204,7 +192,7 @@ label {
 }
 input {
   width: 72%;
-  background-color: #2f2f2f;
+  background-color: #3f3c38;
   border: none;
   padding: 10px;
   border-radius: 2px;
@@ -215,28 +203,20 @@ input {
 }
 .save {
   display: inline-block;
-  background-color: rgb(70, 87, 156);
+  background-color: #cc9f08;
   border: none;
   padding: 10px;
   border-radius: 2px;
-  color: white;
+  color: #3b2600;
   outline: none;
   font-size: 16px;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
   cursor: pointer;
-}
-button {
-  display: inline-block;
-  border: none;
-  color: white;
-  outline: none;
-  font-size: 16px;
-  font-family: "Montserrat", sans-serif;
-  cursor: pointer;
+  transition-duration: 0.2s;
 }
 .save:hover {
-  background-color: rgb(61, 81, 161);
+  background-color: #f5c71b;
 }
 .find-trade-url {
   font-size: 13px;
@@ -254,36 +234,21 @@ button {
 .success {
   margin-top: 3px;
   font-size: 14px;
-  color: rgb(20, 187, 20);
+  color: rgb(134, 230, 10);
 }
 .profile-steam {
   width: 100%;
-  background: #131313;
+  background-color: #f5c71b;
+  color: #21201e;
+  font-weight: bold;
   padding: 13px;
   border-radius: 2px;
 }
 .profile-steam:hover {
-  background: #0f0f0f;
+  background: #cc9f08;
 }
-
-.hero-container {
-  position: relative;
-  border-radius: 5px;
-  background-image: linear-gradient(to right, #141313 0%, #190a51 100%);
-  display: flex;
-  flex-direction: column; /* Cambia la dirección a columna para que el texto esté arriba */
-  align-items: flex-end; /* Alinea todo a la derecha */
-  width: 100%; /* Ajusta el ancho */
-  overflow: hidden;
-  padding: 20px; /* Espaciado interno */
-}
-
-.text-wrapper {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* Alinea el contenido a la derecha */
+.profile-text {
+  font-size: 30px;
 }
 
 .text-container {
@@ -331,29 +296,110 @@ button {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  background: #0c9cda;
+  background-color: #f5c71b;
   padding: 10px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+.user-id {
+  font-weight: bold;
+  color: #958e8e;
+}
+.deposit-cash:hover {
+  background: #cc9f08;
 }
 .mercadopago {
   width: 22px;
   height: 22px;
 }
-.deposit-skins {
-  margin-top: 10px;
-  border-radius: 2px;
+
+.nav-profile {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  background: #0c3896;
-  padding: 10px;
+  gap: 25px;
 }
-
+.add-money-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #3f3c38;
+}
+.add-balance-header {
+  padding: 2px 4px;
+  border-radius: 5px;
+  background-color: #f5c71b;
+}
+.fa-plus {
+  color: black;
+}
+.money-header {
+  font-size: 15px;
+}
+.fa-wallet {
+  color: #f5c71b;
+  font-size: 14px;
+}
 .mt-5 {
   margin-top: 25px;
 }
 .deposit-ipt {
   width: 100%;
   margin-bottom: 10px;
+}
+.select-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-bottom: solid 1px #393838;
+  padding: 5px;
+}
+.select-profile {
+  background: none;
+  color: #737373;
+  font-weight: bold;
+  transition-duration: 0.2s;
+}
+.select-profile:hover {
+  color: white;
+}
+.separetor {
+  color: #4a4949;
+}
+.inventory-wrapper {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  height: 60dvh;
+}
+
+.skin-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  background: #3f3c38;
+}
+
+.skin-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+}
+.skin-p {
+  filter: drop-shadow(0 0 10px rgba(44, 41, 41, 0.4));
+  background-color: #171515;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #c5bdbd;
 }
