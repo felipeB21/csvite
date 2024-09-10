@@ -7,8 +7,7 @@
 body {
   background: #151313;
   color: white;
-  font-family: "Space Mono", "Lucida Sans", "Lucida Sans Regular",
-    "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 a {
@@ -171,7 +170,7 @@ header {
   background: #1c1b1b;
   border-radius: 5px;
   padding: 15px;
-  height: fit-content;
+  height: max-content;
   grid-area: third;
 }
 .profile-settings {
@@ -211,8 +210,8 @@ input {
   border-radius: 2px;
   color: white;
   outline: none;
-  font-size: 16px;
-  font-family: "Space Mono";
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
 }
 .save {
   display: inline-block;
@@ -223,7 +222,7 @@ input {
   color: white;
   outline: none;
   font-size: 16px;
-  font-family: "Space Mono";
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   cursor: pointer;
 }
@@ -233,7 +232,7 @@ button {
   color: white;
   outline: none;
   font-size: 16px;
-  font-family: "Space Mono";
+  font-family: "Montserrat", sans-serif;
   cursor: pointer;
 }
 .save:hover {
@@ -268,33 +267,61 @@ button {
 }
 
 .hero-container {
-  position: relative; /* Position relative to position the text absolutely */
+  position: relative;
   border-radius: 5px;
-  background-image: linear-gradient(to right, #141313 0%, #0c0428 100%);
+  background-image: linear-gradient(to right, #141313 0%, #190a51 100%);
   display: flex;
-  width: 30dvw;
-  overflow: hidden; /* Hide overflow to ensure it doesn't spill out */
+  flex-direction: column; /* Cambia la dirección a columna para que el texto esté arriba */
+  align-items: flex-end; /* Alinea todo a la derecha */
+  width: 100%; /* Ajusta el ancho */
+  overflow: hidden;
+  padding: 20px; /* Espaciado interno */
+}
+
+.text-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinea el contenido a la derecha */
 }
 
 .text-container {
   font-size: 48px;
-  position: absolute; /* Absolute positioning to place it above the images */
-  color: white; /* Ensure text is readable */
-  z-index: 10; /* Ensure text is above images */
-  top: 30px; /* Distance from the top */
-  right: 20px; /* Distance from the right */
-  text-align: right; /* Align text to the right */
-  max-width: calc(100% - 100px); /* Adjust width to fit within container */
-  padding: 10px; /* Optional padding for spacing */
-  box-sizing: border-box; /* Include padding in width calculation */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Shadow effect for better readability */
+  text-transform: uppercase;
+  color: white;
+  text-align: right;
+  padding: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px; /* Espacio entre el texto y las imágenes */
+}
+
+.img-mp,
+.img-st {
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+}
+
+.img-mp {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.img-st {
+  width: 80px;
+  height: 80px;
 }
 
 .agent {
-  width: 300px;
-  height: 350px;
-  object-fit: cover;
+  position: absolute;
+  bottom: 0; /* Asegura que el agente esté en la parte inferior */
+  left: 0;
+  width: auto;
+  height: auto;
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+}
+.agent::-webkit-media-controls {
+  display: none !important;
 }
 
 .deposit-cash {
@@ -304,10 +331,13 @@ button {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  background: #2b8e04;
+  background: #0c9cda;
   padding: 10px;
 }
-
+.mercadopago {
+  width: 22px;
+  height: 22px;
+}
 .deposit-skins {
   margin-top: 10px;
   border-radius: 2px;

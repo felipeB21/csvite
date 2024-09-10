@@ -1,4 +1,4 @@
-import MercadoPagoConfig from "mercadopago";
+import crypto from "crypto";
 import User from "../models/User.js";
 const links = [
   { href: "/skins", text: "Skins" },
@@ -13,7 +13,7 @@ export const index = (req, res) => {
   res.render("pages/index", { user, links });
 };
 
-export const profile = (req, res) => {
+export const profile = async (req, res) => {
   const user = req.user;
   const successMsg = req.session.successMsg;
   const errorMsg = req.session.errorMsg;
@@ -21,7 +21,24 @@ export const profile = (req, res) => {
   req.session.successMsg = null;
   req.session.errorMsg = null;
 
-  res.render("pages/profile", { user, links, successMsg, errorMsg });
+  try {
+    const inventory = await fetch(
+      "https://steamcommunity.com/profiles/76561198328808887/inventory/json/730/2",
+      {
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "GET",
+      }
+    );
+    console.log(inventory);
+
+    const data = await inventory.json();
+    console.log("success", data);
+    res.render("pages/profile", { user, links, successMsg, errorMsg, data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateTradeUrl = async (req, res) => {
@@ -98,7 +115,7 @@ export const updateEmail = async (req, res) => {
   }
 };
 
-export const skins = (req, res) => {
+export const skins = async (req, res) => {
   const user = req.user;
   res.render("pages/skins", { user, links });
 };

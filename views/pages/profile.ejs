@@ -84,13 +84,18 @@
                   id="deposit-amount"
                   placeholder="Ingrese monto (mínimo 2000 ARS, máximo 1000000 ARS)"
                 />
+                <p id="error-message" class="error mb-5"></p>
                 <button class="deposit-cash" id="deposit-button">
-                  <i class="fa-solid fa-coins"></i>
+                  <img
+                    class="mercadopago"
+                    src="/img/mercadopago.webp"
+                    alt="Mercado Pago"
+                  />
                   <p>Ingresar dinero</p>
                 </button>
                 <a class="deposit-skins" href="#">
                   <i class="fa-solid fa-gun"></i>
-                  <p>Ingresar skins</p>
+                  <p>Vender skins</p>
                 </a>
                 <div id="wallet_container"></div>
               </div>
@@ -100,13 +105,26 @@
       </div>
     </div>
     <script>
+      const userId = "<%= user._id %>";
       document
         .getElementById("deposit-button")
         .addEventListener("click", async function () {
-          const amount = document.getElementById("deposit-amount").value;
+          const amount = parseFloat(
+            document.getElementById("deposit-amount").value
+          );
+          const errorMessageElement = document.getElementById("error-message");
+
+          errorMessageElement.textContent = "";
+
+          if (!amount) {
+            errorMessageElement.textContent =
+              "Ingrese una cantidad de dinero para depositar.";
+            return;
+          }
 
           if (amount < 2000 || amount > 1000000) {
-            alert("El monto debe estar entre 2000 ARS y 1000000 ARS.");
+            errorMessageElement.textContent =
+              "El monto debe estar entre 2000 ARS y 1000000 ARS.";
             return;
           }
 
@@ -116,7 +134,7 @@
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ amount: parseFloat(amount) }),
+              body: JSON.stringify({ amount: amount, userId: userId }),
             });
 
             const data = await response.json();
@@ -124,10 +142,11 @@
             if (data) {
               window.location.href = data;
             } else {
-              console.error("Checkout URL not found");
+              errorMessageElement.textContent = "Error al generar la orden.";
             }
           } catch (error) {
-            console.error("Error:", error);
+            errorMessageElement.textContent =
+              "Ocurrió un error al intentar procesar el pago.";
           }
         });
     </script>

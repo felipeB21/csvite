@@ -1,5 +1,6 @@
 import { MercadoPagoConfig, Preference } from "mercadopago";
 import dotenv from "dotenv";
+import User from "../models/User.js";
 dotenv.config();
 
 const client = new MercadoPagoConfig({
@@ -10,6 +11,9 @@ const preference = new Preference(client);
 
 export const createOrder = async (req, res) => {
   const { amount } = req.body;
+  const userId = req.user.id;
+
+  if (!userId) return res.status(400).json({ error: "Usuario no encontrado." });
 
   if (amount < 2000 || amount > 1000000) {
     return res
@@ -28,9 +32,9 @@ export const createOrder = async (req, res) => {
           },
         ],
         back_urls: {
-          success: "http://localhost:3000/success",
-          failure: "http://localhost:3000/failure",
-          pending: "http://localhost:3000/pending",
+          success: `http://localhost:3000/payments/success?userId=${userId}&amount=${amount}`,
+          failure: "http://localhost:3000/payments/failure",
+          pending: "http://localhost:3000/payments/pending",
         },
         auto_return: "approved",
       },
@@ -38,6 +42,27 @@ export const createOrder = async (req, res) => {
 
     return res.status(200).json(response.init_point);
   } catch (error) {
-    console.log(error);
+    console.error("Error creando la preferencia:", error);
+    return res.status(500).json({ error: "Error interno del servidor." });
+  }
+};
+
+export const handleSuccess = async (req, res) => {
+  const { userId, amount } = req.query;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado." });
+    }
+
+    user.money += parseFloat(amount);
+    await user.save();
+
+    return res.redirect("/profile");
+  } catch (error) {
+    console.error("Error al actualizar el saldo:", error);
+    return res.status(500).json({ error: "Error al actualizar el saldo." });
   }
 };

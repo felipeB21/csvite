@@ -3,12 +3,8 @@
 <link rel="stylesheet" href="/css/styles.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"
   rel="stylesheet"
 />
 <link
@@ -18,4 +14,24 @@
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <script>
   const mp = new MercadoPago("TEST-da68267a-d0eb-413d-9ace-d40c5036379f");
+</script>
+<script>
+  function formatCurrency(amount) {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const formatMoney = (moneyElement) => {
+      const moneyText = moneyElement.textContent.replace(/[^0-9]/g, "");
+      const formattedMoney = formatCurrency(parseFloat(moneyText));
+      moneyElement.textContent = formattedMoney;
+    };
+
+    document.querySelectorAll(".profile-money, .money").forEach(formatMoney);
+  });
 </script>
