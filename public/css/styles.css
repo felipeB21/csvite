@@ -277,14 +277,62 @@ input {
   height: 80px;
 }
 
+.agent-wrapper {
+  position: relative;
+  border-radius: 5px;
+  width: 35vw;
+  height: 300px;
+  background-color: #f5c71b;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  background-color: #f5c71b;
+}
+
 .agent {
   position: absolute;
-  bottom: 0; /* Asegura que el agente esté en la parte inferior */
-  left: 0;
-  width: auto;
-  height: auto;
+  bottom: 0;
+  left: 0%;
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
 }
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 35%;
+  z-index: 3;
+  color: white;
+  font-size: 2.5rem;
+}
+
+.hero-text h1 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Texto de fondo con borde */
+.hero-text-outline {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 35%;
+  z-index: 2;
+  color: transparent;
+  font-size: 3rem;
+  -webkit-text-stroke: 2px white; /* Borde blanco */
+  pointer-events: none; /* Evita interacción con el texto de fondo */
+  opacity: 0.2; /* Hace que el borde del texto sea más sutil */
+}
+
+.hero-text-outline h1 {
+  margin: 0;
+  padding: 10px 0;
+  text-transform: uppercase;
+}
+
 .agent::-webkit-media-controls {
   display: none !important;
 }
@@ -294,7 +342,6 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   width: 100%;
   background-color: #f5c71b;
   padding: 10px;

@@ -6,6 +6,31 @@
   </head>
   <body>
     <%- include("../partials/header") %>
-    <main class="container"></main>
+    <main class="container">
+      <div class="agent-wrapper">
+        <div class="background"></div>
+        <video
+          class="agent"
+          src="/assets/agent.webm"
+          autoplay
+          loop
+          muted
+        ></video>
+
+        <!-- Texto de fondo -->
+        <div class="hero-text-outline">
+          <h1>Compra</h1>
+          <h1>Vende</h1>
+          <h1>Retira</h1>
+        </div>
+
+        <!-- Texto principal -->
+        <div class="hero-text">
+          <h1>Compra</h1>
+          <h1>Vende</h1>
+          <h1>Retira</h1>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
