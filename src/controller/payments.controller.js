@@ -25,7 +25,7 @@ export const createOrder = async (req, res) => {
       body: {
         items: [
           {
-            title: "Mi producto",
+            title: "Ingresar Dinero en CSVITE",
             quantity: 1,
             unit_price: amount,
             currency_id: "ARS",
