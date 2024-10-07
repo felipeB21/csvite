@@ -1,10 +1,11 @@
 import steaminventory from "get-steam-inventory";
 import User from "../models/User.js";
+import SkinPurchased from "../models/SkinPurchased.js";
+
 const links = [
-  { href: "/skins", text: "Skins" },
-  { href: "/sell", text: "Vender" },
+  { href: "/skins", text: "Comprar Skins" },
+  { href: "/sell", text: "Vender Skins" },
   { href: "/contact", text: "Contacto" },
-  { href: "/support", text: "Soporte" },
 ];
 
 export const index = (req, res) => {
@@ -49,7 +50,6 @@ export const profile = async (req, res) => {
       inv,
     });
   } catch (error) {
-    console.error("Error fetching inventory:", error);
     res.render("pages/profile", {
       user,
       successMsg,
@@ -149,4 +149,34 @@ export const logout = (req, res) => {
     }
     res.redirect("/");
   });
+};
+
+export const selledSkins = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    if (!userId) {
+      return res.redirect("/");
+    }
+
+    const userDB = await User.findById(userId);
+    if (!userDB) {
+      return res.status(401).json({ msg: "Invalid user" });
+    }
+
+    const selledSkins = await SkinPurchased.find({ sellerId: userId })
+      .populate("userId")
+      .populate("sellerId");
+
+    if (selledSkins.length < 1) {
+      return res
+        .status(200)
+        .json({ msg: "Todavia no vendiste una Skin, ¡Vende tus skins ahora!" });
+    }
+
+    return res.status(200).json(selledSkins);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
 };

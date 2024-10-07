@@ -329,7 +329,6 @@ input {
 
 .hero-text-outline h1 {
   margin: 0;
-  padding: 10px 0;
   text-transform: uppercase;
 }
 
@@ -338,12 +337,13 @@ input {
 }
 
 .deposit-cash {
+  color: white;
   border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  background-color: #f5c71b;
+  background-color: #1b8ff5;
   padding: 10px;
   transition-duration: 0.2s;
   cursor: pointer;
@@ -353,7 +353,7 @@ input {
   color: #958e8e;
 }
 .deposit-cash:hover {
-  background: #cc9f08;
+  background: #146ebd;
 }
 .mercadopago {
   width: 22px;
@@ -405,7 +405,7 @@ input {
 }
 .select-profile {
   background: none;
-  color: #737373;
+  color: #a29e9e;
   font-weight: bold;
   transition-duration: 0.2s;
 }
@@ -449,4 +449,13 @@ input {
   font-size: 11px;
   font-weight: bold;
   color: #c5bdbd;
+}
+.logout {
+  background-color: rgb(226, 73, 73);
+  color: white;
+  padding: 12px;
+  border-radius: 2px;
+}
+.logout:hover {
+  background-color: rgb(228, 56, 56);
 }

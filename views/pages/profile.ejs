@@ -15,18 +15,10 @@
               <h2 class="profile-username"><%= user.username %></h2>
               <p class="user-id">ID: <%= user.steamId %></p>
             </div>
-            <form action="/logout" method="post">
-              <button>Cerrar sesion</button>
-            </form>
           </div>
         </section>
         <section class="second">
           <div class="select-container">
-            <button class="select-profile" id="steam-inventory">
-              Inventario de Steam
-            </button>
-            <span class="separetor">|</span>
-
             <button class="select-profile" id="buyed-skins">
               Skins Compradas
             </button>
@@ -35,20 +27,6 @@
               Skins Vendidas
             </button>
           </div>
-          <div class="inventory-wrapper">
-            <% if (inv) { %> <% inv.forEach(i => { %>
-            <div class="skin-wrapper">
-              <img
-                class="skin-img"
-                src="<%= i.icon_url %>"
-                alt="<%= i.name %>"
-              />
-              <p class="skin-p"><%= i.state %></p>
-            </div>
-            <% }) %> <% } %>
-          </div>
-
-          <div id="pagination"></div>
         </section>
         <section class="third">
           <div class="profile-settings">
@@ -117,18 +95,27 @@
                   placeholder="mínimo 2.000 ARS, máximo 2.000.000 ARS"
                 />
                 <p id="error-message" class="error mb-5"></p>
-                <button class="deposit-cash" id="deposit-button">
+                <button class="deposit-cash flex" id="deposit-button">
                   <img
                     class="mercadopago"
                     src="/img/mercadopago.webp"
                     alt="Mercado Pago"
                   />
-                  <p>Ingresar dinero</p>
+                  <p id="deposit-text">Ingresar dinero</p>
                 </button>
 
                 <div id="wallet_container"></div>
               </div>
             </div>
+            <form action="/logout" method="post">
+              <button class="logout">
+                <i
+                  class="fa-solid fa-arrow-right-from-bracket"
+                  style="color: #ffffff; padding-right: 5px"
+                ></i>
+                Cerrar sesion
+              </button>
+            </form>
           </div>
         </section>
       </div>
@@ -142,6 +129,8 @@
             document.getElementById("deposit-amount").value
           );
           const errorMessageElement = document.getElementById("error-message");
+          const depositButton = document.getElementById("deposit-button");
+          const depositText = document.getElementById("deposit-text");
 
           errorMessageElement.textContent = "";
 
@@ -158,6 +147,9 @@
           }
 
           try {
+            depositText.textContent = "Cargando...";
+            depositButton.disabled = true;
+
             const response = await fetch("/payments/create-order", {
               method: "POST",
               headers: {
@@ -176,6 +168,9 @@
           } catch (error) {
             errorMessageElement.textContent =
               "Ocurrió un error al intentar procesar el pago.";
+          } finally {
+            depositText.textContent = "Ingresar dinero";
+            depositButton.disabled = false;
           }
         });
     </script>
